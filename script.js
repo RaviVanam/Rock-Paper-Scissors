@@ -1,9 +1,9 @@
 getComputerChoice = () => {
     let op = Math.random();
-    if (op < 1/3) {
+    if (op < 1 / 3) {
         return 'rock';
-    } else if (op < 2/3) {
-        return 'paper'; 
+    } else if (op < 2 / 3) {
+        return 'paper';
     } else {
         return 'scissors';
     }
@@ -44,13 +44,19 @@ playRound = (playerSelection, computerSelection) => {
     }
 }
 
-game = () => {
-    for (let i = 0; i < 3; i++) {
-        let playerSelection = prompt("Choose rock or paper or scissors"); 
-        let computerSelection = getComputerChoice();
+game = (playerSelection) => {
+    let computerSelection = getComputerChoice();
+    const opResult = document.querySelector('.result.op > span');
+    const winResult = document.querySelector('.result.winner > span');
 
-        console.log(playRound(playerSelection, computerSelection));
-    }
+    opResult.textContent = `You: ${playerSelection}, Computer: ${computerSelection}`;
+    winResult.textContent = playRound(playerSelection, computerSelection);
 }
 
-game();
+// game();
+const options = Array.from(document.querySelectorAll('.option'));
+
+options.forEach((option) => {
+    option.addEventListener('click', () => game(option.textContent));
+});
+
